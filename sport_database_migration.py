@@ -1,3 +1,5 @@
+# Website I used to get the stats is at http://www.basketball-reference.com/teams/BOS/2008.html
+
 import psycopg2
 import csv
 
