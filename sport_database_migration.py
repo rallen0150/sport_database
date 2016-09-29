@@ -29,8 +29,8 @@ with open("sport_database.csv") as open_file:
     contents = csv.DictReader(open_file, fieldnames=fieldnames)
     for row in contents:
         cursor.execute("INSERT INTO celtics_data VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
-                       (row["id"],row["first_name"],row["last_name"],row["age"],row["position"],row["points_per_game"],row["rebounds_per_game"],
-                       row["assists_per_game"],row["steals_per_game"],row["blocks_per_game"],row["college"]))
+                       (row["id"],row["first_name"],row["last_name"],row["age"],row["position"],row["points_per_game"],
+                       row["rebounds_per_game"],row["assists_per_game"],row["steals_per_game"],row["blocks_per_game"],row["college"]))
 
 connection.commit()
 cursor.close()
