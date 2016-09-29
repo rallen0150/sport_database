@@ -24,10 +24,13 @@ CREATE TABLE celtics_data (
 
 cursor.execute(create_table_command)
 with open("sport_database.csv") as open_file:
-    contents = csv.reader(open_file)
+    fieldnames = ["id","first_name","last_name","age","position","points_per_game","rebounds_per_game",
+                  "assists_per_game","steals_per_game","blocks_per_game","college"]
+    contents = csv.DictReader(open_file, fieldnames=fieldnames)
     for row in contents:
         cursor.execute("INSERT INTO celtics_data VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
-                       (row[0],row[1],row[2],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10]))
+                       (row["id"],row["first_name"],row["last_name"],row["age"],row["position"],row["points_per_game"],row["rebounds_per_game"],
+                       row["assists_per_game"],row["steals_per_game"],row["blocks_per_game"],row["college"]))
 
 connection.commit()
 cursor.close()
