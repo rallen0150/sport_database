@@ -45,49 +45,49 @@ def show_positions():
 
 def print_points():
     if choice == "p":
-        cursor.execute("SELECT first_name, last_name, points_per_game FROM celtics_data;")
+        cursor.execute("SELECT first_name, last_name, points_per_game FROM celtics_data ORDER BY points_per_game DESC;")
         results = cursor.fetchall()
         print("Points Per Game")
         print_out_stats(results)
 
 def print_rebounds():
     if choice == "r":
-        cursor.execute("SELECT first_name, last_name, rebounds_per_game FROM celtics_data;")
+        cursor.execute("SELECT first_name, last_name, rebounds_per_game FROM celtics_data ORDER BY rebounds_per_game DESC;")
         results = cursor.fetchall()
         print("Rebounds Per Game")
         print_out_stats(results)
 
 def print_assists():
     if choice == "a":
-        cursor.execute("SELECT first_name, last_name, assists_per_game FROM celtics_data;")
+        cursor.execute("SELECT first_name, last_name, assists_per_game FROM celtics_data ORDER BY assists_per_game DESC;")
         results = cursor.fetchall()
         print("Assists Per Game")
         print_out_stats(results)
 
 def print_steals():
     if choice == "s":
-        cursor.execute("SELECT first_name, last_name, steals_per_game FROM celtics_data;")
+        cursor.execute("SELECT first_name, last_name, steals_per_game FROM celtics_data ORDER BY steals_per_game DESC;")
         results = cursor.fetchall()
         print("Steals Per Game")
         print_out_stats(results)
 
 def print_blocks():
     if choice == "b":
-        cursor.execute("SELECT first_name, last_name, blocks_per_game FROM celtics_data;")
+        cursor.execute("SELECT first_name, last_name, blocks_per_game FROM celtics_data ORDER BY blocks_per_game DESC;")
         results = cursor.fetchall()
         print("Blocks Per Game")
         print_out_stats(results)
 
 def print_age():
     if choice == "age":
-        cursor.execute("SELECT first_name, last_name, age FROM celtics_data;")
+        cursor.execute("SELECT first_name, last_name, age FROM celtics_data ORDER BY age DESC;")
         results = cursor.fetchall()
         print("Age")
         print_out_stats(results)
 
 def print_college():
     if choice == "c":
-        cursor.execute("SELECT first_name, last_name, college FROM celtics_data;")
+        cursor.execute("SELECT first_name, last_name, college FROM celtics_data ORDER BY college;")
         results = cursor.fetchall()
         print("College")
         print_out_stats(results)
