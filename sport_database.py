@@ -95,8 +95,7 @@ def print_college():
 
 def add_player():
     if choice == "add":
-        id_num = input("Enter the new ID number: ")
-        
+        id_num = 16
         first_name = input("Enter the first name: ").title()
         last_name = input("Enter the last name: ").title()
         age = input("Enter the age: ")
@@ -107,11 +106,17 @@ def add_player():
         steals_per_game = input("Enter the steals per game average: ")
         blocks_per_game = input("Enter the blocks per game average: ")
         college = input("What college did the player go to? ")
+
+        cursor.execute("SELECT * FROM celtics_data;")
+        results = cursor.fetchall()
+        for row in results:
+            while id_num == row[0]:
+                id_num += 1
+
         cursor.execute("""INSERT INTO celtics_data (id, first_name, last_name, age, position, points_per_game,
                        rebounds_per_game, assists_per_game, steals_per_game, blocks_per_game, college) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
                        (id_num, first_name, last_name, age, position, points_per_game,
                         rebounds_per_game, assists_per_game, steals_per_game, blocks_per_game, college))
-        id_num += 1
 
 def print_out_stats(results):
     for row in results:
@@ -127,7 +132,7 @@ cursor = connection.cursor()
 choice = ''
 
 while choice != 'q':
-    choice = input("""Would you like to search the 2007 Boston Celtics roster by looking at the (t)able, (n)ame, (po)sition (p)oints per game, (r)ebounds per game
+    choice = input("""Would you like to search the 2007 Boston Celtics roster by looking at the (t)able, (n)ame, (po)sition, (p)oints per game, (r)ebounds per game
                    (a)ssists per game, (s)teals_per_game, (b)locks per game, (age), (c)ollege, (add) a player, or (q)uit the database?\n>""").lower()
 
     print_table()
