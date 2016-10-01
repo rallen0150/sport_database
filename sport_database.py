@@ -2,7 +2,7 @@ import psycopg2
 
 def print_table():
     if choice == 't':
-        cursor.execute("SELECT * FROM celtics_data")
+        cursor.execute("SELECT * FROM celtics_data ORDER BY id;")
         results = cursor.fetchall()
         for row in results:
             print('{} {} {} {} {} {} {} {} {} {} {}'.format(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]))
@@ -18,30 +18,10 @@ def print_name():
 def show_positions():
     if choice == 'po':
         new_choice = input("Select one of these positions: C PF SF SG PG\n>").upper()
-        if new_choice == 'C':
-            cursor.execute("SELECT first_name, last_name, position FROM celtics_data where position = 'C';")
-            results = cursor.fetchall()
-            print_out_stats(results)
+        cursor.execute("SELECT first_name, last_name, position FROM celtics_data where position = %s;", (new_choice,))
+        results = cursor.fetchall()
+        print_out_stats(results)
 
-        elif new_choice == 'PF':
-            cursor.execute("SELECT first_name, last_name, position FROM celtics_data where position = 'PF';")
-            results = cursor.fetchall()
-            print_out_stats(results)
-
-        elif new_choice == 'SF':
-            cursor.execute("SELECT first_name, last_name, position FROM celtics_data where position = 'SF';")
-            results = cursor.fetchall()
-            print_out_stats(results)
-
-        elif new_choice == 'SG':
-            cursor.execute("SELECT first_name, last_name, position FROM celtics_data where position = 'SG';")
-            results = cursor.fetchall()
-            print_out_stats(results)
-
-        elif new_choice == 'PG':
-            cursor.execute("SELECT first_name, last_name, position FROM celtics_data where position = 'PG';")
-            results = cursor.fetchall()
-            print_out_stats(results)
 
 def print_points():
     if choice == "p":
@@ -80,7 +60,7 @@ def print_blocks():
 
 def print_age():
     if choice == "age":
-        cursor.execute("SELECT first_name, last_name, age FROM celtics_data ORDER BY age DESC;")
+        cursor.execute("SELECT first_name, last_name, age FROM celtics_data ORDER BY age;")
         results = cursor.fetchall()
         print("Age")
         print_out_stats(results)
@@ -120,7 +100,7 @@ def add_player():
 
 def print_out_stats(results):
     for row in results:
-        print('{} {} {}'.format(row[0], row[1], row[2]))
+        print('{} {} --> {}'.format(row[0], row[1], row[2]))
 
 def exit_database():
     if choice == "q":
