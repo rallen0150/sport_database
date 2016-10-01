@@ -4,6 +4,7 @@ def print_table():
     if choice == 't':
         cursor.execute("SELECT * FROM celtics_data ORDER BY id;")
         results = cursor.fetchall()
+        print("id name age position points rebounds assists steals blocks college\n")
         for row in results:
             print('{} {} {} {} {} {} {} {} {} {} {}'.format(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10]))
 
@@ -98,6 +99,46 @@ def add_player():
                        (id_num, first_name, last_name, age, position, points_per_game,
                         rebounds_per_game, assists_per_game, steals_per_game, blocks_per_game, college))
 
+def update():
+    if choice == 'u':
+        player = input("Enter the ID number of the player you want to update information for:\n>")
+        cursor.execute("SELECT * FROM celtics_data where id = %s;", (player,))
+        results = cursor.fetchall()
+        print(*results)
+        update_choice = input("Which information would you like to update from the original search?\n>")
+        update_info(player, update_choice)
+
+def update_info(player, update_choice):
+    if update_choice == 'n':
+        first_name = input("Enter the first name: ").title()
+        last_name = input("Enter the last name: ").title()
+        cursor.execute("UPDATE celtics_data SET first_name = %s, last_name = %s where id = %s;", (first_name, last_name, player))
+    elif update_choice == 'po':
+        position = input("Enter the updated position: ").upper()
+        cursor.execute("UPDATE celtics_data SET position = %swhere id = %s;", (position, player))
+    elif update_choice == 'p':
+        points = input("Enter the new points per game average: ")
+        cursor.execute("UPDATE celtics_data SET points_per_game = %s where id = %s;", (points, player))
+    elif update_choice == 'r':
+        rebounds = input("Enter the new rebounds per game average: ")
+        cursor.execute("UPDATE celtics_data SET rebounds_per_game = %s where id = %s;", (rebounds, player))
+    elif update_choice == 'a':
+        assists = input("Enter the new assists per game average: ")
+        cursor.execute("UPDATE celtics_data SET assists_per_game = %s where id = %s;", (assists, player))
+    elif update_choice == 's':
+        steals = input("Enter the new steals per game average: ")
+        cursor.execute("UPDATE celtics_data SET steals_per_game = %s where id = %s;", (steals, player))
+    elif update_choice == 'b':
+        blocks = input("Enter the new blocks per game average: ")
+        cursor.execute("UPDATE celtics_data SET blocks_per_game = %s where id = %s;", (blocks, player))
+    elif update_choice == 'age':
+        age = input("Update the player's age: ")
+        cursor.execute("UPDATE celtics_data SET age = %s where id = %s;", (age, player))
+    elif update_choice == 'c':
+        college = input("Update the college that the player attended: ")
+        cursor.execute("UPDATE celtics_data SET college = %s where id = %s;", (college, player))
+
+
 def print_out_stats(results):
     for row in results:
         print('{} {} --> {}'.format(row[0], row[1], row[2]))
@@ -112,8 +153,9 @@ cursor = connection.cursor()
 choice = ''
 
 while choice != 'q':
+
     choice = input("""Would you like to search the 2007 Boston Celtics roster by looking at the (t)able, (n)ame, (po)sition, (p)oints per game, (r)ebounds per game
-                   (a)ssists per game, (s)teals_per_game, (b)locks per game, (age), (c)ollege, (add) a player, or (q)uit the database?\n>""").lower()
+                   (a)ssists per game, (s)teals_per_game, (b)locks per game, (age), (c)ollege, (add) a player, (u)pdate any information or (q)uit the database?\n>""").lower()
 
     print_table()
     print_name()
@@ -126,6 +168,7 @@ while choice != 'q':
     print_age()
     print_college()
     add_player()
+    update()
     exit_database()
 
 
