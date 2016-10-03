@@ -109,6 +109,7 @@ def update():
         print(*results)
         update_choice = input("Which information would you like to update from the original search?\n>")
         update_info(player, update_choice)
+        connection.commit()
 
 def update_info(player, update_choice):
     if update_choice == 'n':
