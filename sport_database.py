@@ -98,6 +98,8 @@ def add_player():
                        rebounds_per_game, assists_per_game, steals_per_game, blocks_per_game, college) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
                        (id_num, first_name, last_name, age, position, points_per_game,
                         rebounds_per_game, assists_per_game, steals_per_game, blocks_per_game, college))
+        connection.commit()
+
 
 def update():
     if choice == 'u':
